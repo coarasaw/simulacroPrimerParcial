@@ -8,7 +8,7 @@ import { Pelicula } from 'src/app/clases/pelicula';
 })
 
 export class TablaPeliculaComponent implements OnInit {
-
+  public vista: boolean = true;
   @Input()  listadoPeliculas:Pelicula[]=[];
   @Output() onPeliculaSelccionada:EventEmitter<Pelicula>= new EventEmitter();
   
@@ -19,6 +19,15 @@ export class TablaPeliculaComponent implements OnInit {
 
   mostrarDetallePelicula(pelicula:Pelicula){
     this.onPeliculaSelccionada.emit(pelicula);
+  }
+
+  CambiarVista() {
+    if (this.vista == true) {
+      this.vista = false;
+    }
+    else {
+      this.vista = true;
+    }
   }
 
 }

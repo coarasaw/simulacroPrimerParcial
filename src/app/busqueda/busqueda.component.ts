@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Pelicula } from '../clases/pelicula';
 import { PeliculaService } from '../servicios/pelicula.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-busqueda',
@@ -9,14 +10,14 @@ import { PeliculaService } from '../servicios/pelicula.service';
 })
 export class BusquedaComponent implements OnInit {
   peliculaDetalle?:Pelicula;
+  peliculas?:Pelicula[]=[];
+  suscriptionList: Subscription = new Subscription();
   elent:boolean = false;
-  peliculas?:Pelicula[];
 
-  constructor(private _peliculaService:PeliculaService) {
-    this.peliculas = _peliculaService.peliculas;
-   }
+  constructor(private _peliculaService:PeliculaService) {}
 
   ngOnInit(): void {
+    this.getPeliculas();
   }
   
   mostrarDetallePelicula(peliculaRecibida:Pelicula){
@@ -28,24 +29,10 @@ export class BusquedaComponent implements OnInit {
     this.elent = false;
   }
 
-  /* peliculaABorrar(pelicula:Pelicula){   
-    const result = this._peliculaService.peliculas.filter(element => {
-      return element.id != pelicula.id;
-    })
-    this._peliculaService.peliculas = result;
-    this.elent = false;
-    
-    //verifico los datos por consola
-    console.log("Parametro :",pelicula);
-    console.log("lo borra");
-    console.log("Array Borrado :",this._peliculaService.peliculas);
-    console.log('Resultado :',result);
-  } */
-
   peliculaABorrar(pelicula:Pelicula){   
     
     const result = this.peliculas.filter((obj) => {
-      return obj.id != pelicula.id;
+      return obj.nombre != pelicula.nombre;
     })
     
     this.peliculas = result;
@@ -68,5 +55,28 @@ export class BusquedaComponent implements OnInit {
     });
     this.elent = false;
   }
+
+  getPeliculas(){
+    this.suscriptionList == this._peliculaService.getListadoPeliculas().subscribe(data =>{
+      console.log(data);
+      this.peliculas = [];
+      //this.loading = false;
+      data.forEach((element:any) => {
+        this.peliculas.push({
+          id:element.payload.doc.id,
+          ...element.payload.doc.data()
+        })
+        console.log(element.payload.doc.id);
+        console.log(element.payload.doc.data());
+      });
+      console.log(this.peliculas);
+    })
+
+  }
+
+  ngOnDestroy(): void {
+    //this.suscriptionUser.unsubscribe();
+      this.suscriptionList.unsubscribe();
+   }
 
 }

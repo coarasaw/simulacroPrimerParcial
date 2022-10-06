@@ -5,21 +5,21 @@
         <app-spinner></app-spinner>
     </div>
     <div class="py-5 text-center">
-        <h2>ALTA DE ACTOR</h2>
+        <h2>ALTA DE REPARTIDOR</h2>
     </div>
     <div *ngIf='!loading' class="row">
         <!--Tabla banderas-->
         <div class="col-md-4 order-md-2 mb-4"> 
          
             <h4 class="d-flex justify-content-between align-items-center mb-3">
-                <span class="text-muted">Nacionalidad</span>
+                <span class="text-muted">País</span>
             </h4>        
             <app-tabla-pais (eventoPaisSeleccionado)="mostrarPais($event)"></app-tabla-pais>   
         </div> 
          <!--Datos actor-->
         <div class="col-md-8 order-md-1">
             <h4 class="mb-3">Datos personales</h4>
-            <form class="needs-validation" [formGroup]="registrarForm" (ngSubmit)="registar()">
+            <form class="needs-validation" [formGroup]="registrarForm" (ngSubmit)="registarRepartidor()">
                 <div class="row">
                    <!--  Nombre -->
                     <div class="col-md-6 mb-3">
@@ -34,54 +34,65 @@
                                 Nombre como minimo <strong>debe tener 4 caracteres</strong>
                             </span>
                     </div>
-                    <!-- Apellido -->
+                    <!-- DNI -->
                     <div class="col-md-6 mb-3">
-                        <label for="apellido">Apellido:</label>
-                        <input type="text" class="form-control" formControlName="apellido">
+                        <label for="dni">DNI:</label>
+                        <input type="number" class="form-control" formControlName="dni">
                             <span class="text-danger"
-                            *ngIf="registrarForm.get('apellido')?.hasError('required') && registrarForm.get('apellido')?.touched">
-                                El Apellido <strong>es requerido</strong>
+                            *ngIf="registrarForm.get('dni')?.hasError('required') && registrarForm.get('dni')?.touched">
+                                El DNI <strong>es requerido</strong>
                             </span>
                             <span class="text-danger"
-                            *ngIf="registrarForm.get('apellido')?.hasError('minlength') && registrarForm.get('apellido')?.touched">
-                                Apellido como minimo <strong>debe tener 4 caracteres</strong>
+                            *ngIf="registrarForm.get('dni')?.hasError('minlength') && registrarForm.get('dni')?.touched">
+                                DNI como minimo <strong>debe tener 4 caracteres</strong>
                             </span>
                     </div>
-                    <!-- Email -->
+                    <!-- Edad -->
                     <div class="col-md-6 mb-3">
-                        <label for="email">Email <span class="text-muted">(Optional)</span></label>
-                        <input type="email" class="form-control" placeholder="you@example.com" formControlName="email">
+                        <label for="edad">EDAD </label>
+                        <input type="number" class="form-control" formControlName="edad">
                             <span class="text-danger"
-                            *ngIf="registrarForm.get('email')?.hasError('required') && registrarForm.get('email')?.touched">
-                                El Correo <strong>es requerido</strong>
+                            *ngIf="registrarForm.get('edad')?.hasError('required') && registrarForm.get('edad')?.touched">
+                                La edad <strong>es requerido</strong>
                             </span>
                             <span class="text-danger"
-                            *ngIf="registrarForm.get('email')?.hasError('email') && registrarForm.get('email')?.touched">
-                                Correo <strong>invalido</strong>
+                            *ngIf="registrarForm.get('edad')?.hasError('edad') && registrarForm.get('edad')?.touched">
+                                Edad <strong>invalido</strong>
                             </span>
                     </div>
-                    <!-- Dirección -->
+                    <!-- capcidad -->
                     <div class="col-md-6 mb-3">
-                        <label for="direccion">Dirección:</label>
-                        <input type="text" class="form-control" formControlName="direccion">
+                        <label for="direccion">Capcidad:</label>
+                        <input type="text" class="form-control" formControlName="capcidad">
                             <span class="text-danger"
-                            *ngIf="registrarForm.get('direccion')?.hasError('required') && registrarForm.get('direccion')?.touched">
+                            *ngIf="registrarForm.get('capcidad')?.hasError('required') && registrarForm.get('capcidad')?.touched">
                                 La Dirección <strong>es requerido</strong>
                             </span>
                             <span class="text-danger"
-                            *ngIf="registrarForm.get('direccion')?.hasError('minlength') && registrarForm.get('direccion')?.touched">
+                            *ngIf="registrarForm.get('capcidad')?.hasError('minlength') && registrarForm.get('capcidad')?.touched">
+                                Dirección como minimo <strong>debe tener 4 caracteres</strong>
+                            </span>
+                    </div>
+                    <!-- unidad -->
+                    <div class="col-md-6 mb-3">
+                        <label for="direccion">Unidad:</label>
+                        <input type="text" class="form-control" formControlName="unidad" placeholder="[SI] o [NO]">
+                            <span class="text-danger"
+                            *ngIf="registrarForm.get('unidad')?.hasError('required') && registrarForm.get('capcidad')?.touched">
+                                La Dirección <strong>es requerido</strong>
+                            </span>
+                            <span class="text-danger"
+                            *ngIf="registrarForm.get('unidad')?.hasError('minlength') && registrarForm.get('unidad')?.touched">
                                 Dirección como minimo <strong>debe tener 4 caracteres</strong>
                             </span>
                     </div>
                 </div>
                 <!-- País -->
                 <div class="col-md-6 mb-3">
-                    <label for="nacionalidad">Nacionalidad:</label>
+                    <label for="pais">País:</label>
                     <input type="text" class="form-control"  placeholder="{{pais}}" 
-                    formControlNamevalue="nacionalidad" readonly>
-                    <!--small class="invalid" *ngIf="forma.controls.nacionalidad.errors?.nacionalidad">
-                        Falta seleccionar el pais...
-                    </small-->
+                    formControlNamevalue="pais" readonly>
+                    
                 </div>
             
                 <hr class="mb-4">

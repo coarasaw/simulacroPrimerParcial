@@ -7,6 +7,7 @@ import { ActorService } from 'src/app/servicios/actor.service';
 import { ErrorService } from 'src/app/servicios/error.service';
 import { PaisService } from 'src/app/servicios/pais.service';
 import { Actor } from '../../clases/actor';
+import { Repartidor } from 'src/app/clases/repartidor';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -33,11 +34,20 @@ export class AltaActoresComponent implements OnInit {
                private toastr: ToastrService
                ) { 
 
-                this.registrarForm = this.fb.group({
+                /* this.registrarForm = this.fb.group({
                   nombre: ['',[Validators.required, Validators.minLength(4)]],
                   apellido: ['',[Validators.required, Validators.minLength(4)]],
                   email: ['',[Validators.required, Validators.email]],
                   direccion: ['',[Validators.required, Validators.minLength(4)]],
+                }) */
+
+                this.registrarForm = this.fb.group({
+                  nombre: ['',[Validators.required, Validators.minLength(4)]],
+                  dni: ['',[Validators.required, Validators.minLength(6)]],
+                  edad: ['',[Validators.required, Validators.min(18)]],
+                  capcidad: ['',[Validators.required, Validators.minLength(2)]],
+                  unidad: ['',[Validators.required, Validators.minLength(1)]],
+                  pais:['']
                 })
   }
 
@@ -71,6 +81,24 @@ export class AltaActoresComponent implements OnInit {
     this.rutas.navigate(['actores/listadoActores']);
   }
 
+  registarRepartidor(){
+    console.log('Registar');
+    this.loading = true;
+    const datoRepartidor: Repartidor = {
+      nombre: this.registrarForm.get('nombre')?.value,
+      dni: this.registrarForm.get('dni')?.value,
+      edad: this.registrarForm.get('edad')?.value,
+      capcidad: this.registrarForm.get('capcidad')?.value,
+      unidad: this.registrarForm.get('unidad')?.value,
+      pais:this.pais
+    }
+    this._unActor.crearRepartidor(datoRepartidor).then(resp => {
+      this.showSuccess();
+    }).catch((error) => {
+      this.showError(error);
+    });
+    //this.rutas.navigate(['actores/listadoActores']);
+  }
   showSuccess() {
     this.toastr.success('Se guardó correctamente');
   }

@@ -14,7 +14,7 @@ export class MenuGralComponent implements OnInit {
   }
 
   inicio(){
-    this.rutas.navigate(['inicio']);
+    this.rutas.navigate(['bienvenido']);
   }
 
   busqueda(){
@@ -35,6 +35,9 @@ export class MenuGralComponent implements OnInit {
   }
   listadoActor(){
     this.rutas.navigate(['actores/listadoActores']);
+  }
+  peliculaActor(){
+    this.rutas.navigate(['actores/peliculaActor']);
   }
 
 }

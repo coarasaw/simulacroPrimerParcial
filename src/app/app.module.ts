@@ -10,10 +10,8 @@ import { BorrarPeliculaComponent } from './componentes/borrar-pelicula/borrar-pe
 import { DetallePeliculaComponent } from './componentes/detalle-pelicula/detalle-pelicula.component';
 import { ModificarPeliculaComponent } from './componentes/modificar-pelicula/modificar-pelicula.component';
 import { TablaPeliculaComponent } from './componentes/tabla-pelicula/tabla-pelicula.component';
-import { TablaPaisComponent } from './componentes/tabla-pais/tabla-pais.component';
 import { SharedModule } from './shared/shared.module';
-import { PeliculasModule } from './peliculas/peliculas.module';
-import { ActoresModule } from './actores/actores.module';
+
 //Formularios
 import { FormsModule } from '@angular/forms';
 //firebase
@@ -26,8 +24,12 @@ import { HttpClientModule } from '@angular/common/http';
 //toast
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PorRegionComponent } from './componentes/por-region/por-region.component';
-
+import { AuthModule } from './auth/auth.module';
+import { BienvenidoLoginComponent } from './bienvenido-login/bienvenido-login.component';
+/* import { MostarPeliculaActorComponent } from './componentes/mostar-pelicula-actor/mostar-pelicula-actor.component';
+import { MostarDetalleActorComponent } from './componentes/mostar-detalle-actor/mostar-detalle-actor.component';
+import { MostarPaisActorComponent } from './componentes/mostar-pais-actor/mostar-pais-actor.component';
+ */
 
 @NgModule({
   declarations: [
@@ -39,8 +41,11 @@ import { PorRegionComponent } from './componentes/por-region/por-region.componen
     DetallePeliculaComponent,
     ModificarPeliculaComponent,
     TablaPeliculaComponent,
-    //TablaPaisComponent,
-    //PorRegionComponent
+    BienvenidoLoginComponent,
+    /* MostarPeliculaActorComponent,
+    MostarDetalleActorComponent,
+    MostarPaisActorComponent */
+    
   ],
   exports:[
     //TablaPaisComponent
@@ -50,9 +55,6 @@ import { PorRegionComponent } from './componentes/por-region/por-region.componen
     AppRoutingModule,
     SharedModule,
     FormsModule,
-    //ActoresModule,
-    //PeliculasModule,
-    //ActoresModule,
     //firebase
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
@@ -61,7 +63,8 @@ import { PorRegionComponent } from './componentes/por-region/por-region.componen
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
     //api
-    HttpClientModule
+    HttpClientModule,
+    AuthModule
     
   ],
   providers: [],

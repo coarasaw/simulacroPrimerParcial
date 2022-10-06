@@ -5,7 +5,7 @@
         <app-spinner></app-spinner>
     </div>
     <div class="py-5 text-center">
-        <h2>ALTA DE PELICULA</h2>
+        <h2>ALTA DE PELÍCULA</h2>
     </div>
     <div *ngIf='!loading' class="row">
         <!--Tabla actores-->
@@ -15,15 +15,16 @@
                 <span class="text-muted">ACTOR</span>
             </h4>        
             <!-- <app-tabla-pais (eventoPaisSeleccionado)="mostrarPais($event)"></app-tabla-pais>    -->
+            <app-tabla-actor (seSeleccionoActor)="cambiarActor($event)"></app-tabla-actor>
         </div> 
-         <!--Datos actor-->
+         <!--Datos de Las Peliculas-->
         <div class="col-md-8 order-md-1">
-            <h4 class="mb-3">Datos personales</h4>
+            <h4 class="mb-3">Datos de películas</h4>
             <form class="needs-validation" [formGroup]="registrarForm" (ngSubmit)="registar()">
                 <div class="row">
-                   <!--  Nombre -->
+                   <!--  Nombre de pelicula -->
                     <div class="col-md-6 mb-3">
-                        <label for="nombre">Nombre:</label>
+                        <label for="nombre">Nombre(Titulo):</label>
                         <input type="text" class="form-control" formControlName = 'nombre'>
                             <span class="text-danger"
                             *ngIf="registrarForm.get('nombre')?.hasError('required') && registrarForm.get('nombre')?.touched">
@@ -34,55 +35,85 @@
                                 Nombre como minimo <strong>debe tener 4 caracteres</strong>
                             </span>
                     </div>
-                    <!-- Apellido -->
+                    <!-- Tipo -->
                     <div class="col-md-6 mb-3">
-                        <label for="apellido">Apellido:</label>
-                        <input type="text" class="form-control" formControlName="apellido">
+                       <label for="tipo">Tipo: (Seleccione una opción)</label>
+                        <!-- 
+                        <input type="text" class="form-control" formControlName="tipo"> -->
+                            <select class="form-control" formControlName="tipo" [(ngModel)] = "opcionestipos[3]">
+                                <option *ngFor="let tipos of opcionestipos"
+                                [value]="tipos" selected>{{tipos}}</option>
+                            </select>
                             <span class="text-danger"
-                            *ngIf="registrarForm.get('apellido')?.hasError('required') && registrarForm.get('apellido')?.touched">
-                                El Apellido <strong>es requerido</strong>
+                            *ngIf="registrarForm.get('tipo')?.hasError('required') && registrarForm.get('tipo')?.touched">
+                                El Tipo <strong>es requerido</strong>
                             </span>
-                            <span class="text-danger"
-                            *ngIf="registrarForm.get('apellido')?.hasError('minlength') && registrarForm.get('apellido')?.touched">
-                                Apellido como minimo <strong>debe tener 4 caracteres</strong>
-                            </span>
+                            <!-- <span class="text-danger"
+                            *ngIf="registrarForm.get('tipo')?.hasError('minlength') && registrarForm.get('tipo')?.touched">
+                                El Tipo como minimo <strong>debe tener 4 caracteres</strong>
+                            </span> -->
                     </div>
-                    <!-- Email -->
+                    <!-- Fecha de Estreno -->
                     <div class="col-md-6 mb-3">
-                        <label for="email">Email <span class="text-muted">(Optional)</span></label>
-                        <input type="email" class="form-control" placeholder="you@example.com" formControlName="email">
+                        <label for="fechaDeEstreno">Fecha de Estreno: </label>
+                        <input type="date" class="form-control" formControlName="fechaDeEstreno">
                             <span class="text-danger"
-                            *ngIf="registrarForm.get('email')?.hasError('required') && registrarForm.get('email')?.touched">
-                                El Correo <strong>es requerido</strong>
+                            *ngIf="registrarForm.get('fechaDeEstreno')?.hasError('required') && registrarForm.get('fechaDeEstreno')?.touched">
+                               Fecha de Estreno <strong>es requerida</strong>
                             </span>
-                            <span class="text-danger"
-                            *ngIf="registrarForm.get('email')?.hasError('email') && registrarForm.get('email')?.touched">
-                                Correo <strong>invalido</strong>
-                            </span>
+                            <!-- <span class="text-danger"
+                            *ngIf="registrarForm.get('fechaDeEstreno')?.hasError('email') && registrarForm.get('fechaDeEstreno')?.touched">
+                                Fecha de Estreno <strong>invalida</strong>
+                            </span> -->
                     </div>
-                    <!-- Dirección -->
+                    <!-- Cantidad de Publico -->
                     <div class="col-md-6 mb-3">
-                        <label for="direccion">Dirección:</label>
-                        <input type="text" class="form-control" formControlName="direccion">
+                        <label for="cantidadDePublico">La cantidad de Público: </label>
+                        <input type="number" class="form-control" formControlName="cantidadDePublico">
                             <span class="text-danger"
-                            *ngIf="registrarForm.get('direccion')?.hasError('required') && registrarForm.get('direccion')?.touched">
-                                La Dirección <strong>es requerido</strong>
+                            *ngIf="registrarForm.get('cantidadDePublico')?.hasError('required') && registrarForm.get('cantidadDePublico')?.touched">
+                                La Cantidad de Público <strong>es requerido</strong>
                             </span>
-                            <span class="text-danger"
-                            *ngIf="registrarForm.get('direccion')?.hasError('minlength') && registrarForm.get('direccion')?.touched">
-                                Dirección como minimo <strong>debe tener 4 caracteres</strong>
-                            </span>
+                            <!-- <span class="text-danger"
+                            *ngIf="registrarForm.get('cantidadDePublico')?.hasError('minlength') && registrarForm.get('cantidadDePublico')?.touched">
+                                La Cantidad de Público  <strong>invalida</strong>
+                            </span> -->
+                    </div>
+                    <!-- Foto de la Película -->
+                    <div class="col-md-6 mb-3">
+                        <label for="fotoDeLaPelicula">Foto de la Película: <span class="text-muted">(Optional)</span></label>
+                        <input type="file" (change)="uploadImage($event)" class="form-control" formControlName="fotoDeLaPelicula">
+                            <!-- <span class="text-danger"
+                            *ngIf="registrarForm.get('fotoDeLaPelicula')?.hasError('required') && registrarForm.get('fotoDeLaPelicula')?.touched">
+                                La Foto de la Película <strong>es requerido</strong>
+                            </span> -->
+                            <!-- <span class="text-danger"
+                            *ngIf="registrarForm.get('fotoDeLaPelicula')?.hasError('minlength') && registrarForm.get('fotoDeLaPelicula')?.touched">
+                                La Foto de la Película  <strong>invalida</strong>
+                            </span>  -->
+                            
+                    </div>
+                    <!-- Apellido del Actor -->
+                    <div class="col-md-6 mb-3">
+                        <label for="apellidoActor">Datos del Actor:</label>
+                        <input type="text" class="form-control"  placeholder="Elegir Actor" value="{{actorNombre}}"
+                        formControlName="actorNombreApellido" >
+                        <!--small class="invalid" *ngIf="forma.controls.nacionalidad.errors?.nacionalidad">
+                            Falta seleccionar el pais...
+                        </small
+                        placeholder="{{pais}}"
+                        -->
                     </div>
                 </div>
-                <!-- País -->
-                <div class="col-md-6 mb-3">
-                    <label for="nacionalidad">Nacionalidad:</label>
-                    <input type="text" class="form-control"  placeholder="{{pais}}" 
-                    formControlNamevalue="nacionalidad" readonly>
-                    <!--small class="invalid" *ngIf="forma.controls.nacionalidad.errors?.nacionalidad">
-                        Falta seleccionar el pais...
-                    </small-->
-                </div>
+                
+
+                <!-- <div class="mb-3">
+                    <label for="actor">Actor</label>
+                    <br>
+                    <input type="text" readonly=true class="form-control" id="actor" [(ngModel)]="actorNombre"
+                        name="actor" placeholder="Elegir de la tabla de actores" required>
+                </div> -->
+
             
                 <hr class="mb-4">
                 <div class="col-md-12 text-center">

@@ -11,7 +11,7 @@ import { Actor } from '../../clases/actor';
   styleUrls: ['./listado-actores.component.css']
 })
 export class ListadoActoresComponent implements OnInit {
-  suscriptionUser: Subscription = new Subscription();
+  //suscriptionUser: Subscription = new Subscription();
   suscriptionList: Subscription = new Subscription();
   listActores: Actor[] = [];
   loading = false;

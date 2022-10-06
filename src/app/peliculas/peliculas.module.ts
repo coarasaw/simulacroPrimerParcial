@@ -6,12 +6,14 @@ import { AltaPeliculasComponent } from './alta-peliculas/alta-peliculas.componen
 import { ListadoPeliculasComponent } from './listado-peliculas/listado-peliculas.component';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TablaActorComponent } from '../componentes/tabla-actor/tabla-actor.component';
 
 
 @NgModule({
   declarations: [
     AltaPeliculasComponent,
-    ListadoPeliculasComponent
+    ListadoPeliculasComponent,
+    TablaActorComponent
   ],
   imports: [
     CommonModule,

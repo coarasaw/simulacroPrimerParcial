@@ -3,9 +3,8 @@
   
     <!-- Main jumbotron for a primary marketing message or call to action &raquo;-->
     <div class="jumbotron">
-        <div class="container">
-          <app-tabla-pelicula [listadoPeliculas]="peliculas" (onPeliculaSelccionada)="mostrarDetallePelicula($event)"></app-tabla-pelicula>
-          <p><a class="btn btn-primary btn-lg" href="#" role="button">Cambiar vista  </a></p>
+      <div class="container">
+          <app-tabla-pelicula [listadoPeliculas]="peliculas" (onPeliculaSelccionada)="mostrarDetallePelicula($event)"></app-tabla-pelicula>  
       </div>
     
       <div class="container" *ngIf="elent">
@@ -25,5 +24,5 @@
           </div>
         </div>       
                   
-      </div> <!-- /container -->
-   <!--  </main> -->
+    </div> <!-- jumbotronr -->
+<!--  </main> -->
