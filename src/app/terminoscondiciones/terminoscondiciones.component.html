@@ -1,0 +1,33 @@
+
+
+<div class="container">
+ <!--  <form [formGroup]="formulario" (ngSubmit)="aceptar()">  -->
+        <div class="row">
+            <div class="col-md-12 mb-2">
+                <h2><b>Terminos Condiciones</b></h2>
+            </div>
+        </div>
+        <div class="row formulario">
+
+            <div class="row mt-2">
+                <div class="col-md-12 mb-2">
+                    <div class="form-check">
+                     <!-- <input type="checkbox" class="form-check-input" id="terminos" formControlName="terminos">  -->
+                        <input type="checkbox" class="form-check-input" id="terminos" > 
+                        <label for="recordar" class="form-check-label" for="terminos">
+                            Aceptar términos y condiciones
+                        </label>
+                        <small class="invalid" *ngIf="formulario.get('terminos')?.errors?.required && formulario.get('terminos')?.touched">
+                            Le falto aceptar los términos y condiciones
+                        </small>
+                    </div>
+                </div>
+                <div class="col-md-12 d-grid gap-2">
+                   <!--  <button type="submit" class="btn btn-primary btn-block" [disabled]="formulario.invalid" > -->
+                    <button (click)="aceptar()" class="btn btn-primary btn-block">    
+                        Aceptar
+                    </button>
+                </div>
+            </div>    
+<!--   </form>  -->
+</div>
